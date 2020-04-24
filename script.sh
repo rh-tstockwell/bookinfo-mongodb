@@ -15,4 +15,13 @@
 # limitations under the License.
 
 set -e
-mongoimport --host localhost --db test --collection ratings --drop --file /app/data/ratings_data.json
+
+. /opt/rh/rh-mongodb36/enable
+
+mongoimport --host "$MONGODB_SERVICE_HOST:$MONGODB_SERVICE_PORT" \
+  --db "$MONGODB_DATABASE" \
+  --username "$MONGODB_USER" \
+  --password "$MONGODB_PASSWORD" \
+  --collection ratings \
+  --upsertFields rating \
+  --file "$APP_DATA/scripts/ratings_data.json"

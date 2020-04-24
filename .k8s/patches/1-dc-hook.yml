@@ -1,0 +1,41 @@
+spec:
+  template:
+    spec:
+      containers:
+        - name: mongodb
+          volumeMounts:
+            - name: scripts
+              mountPath: /opt/app-root/src/scripts
+      volumes:
+        - name: scripts
+          configMap:
+            name: mongodb
+            defaultMode: 0770
+  strategy:
+    recreateParams:
+      post:
+        failurePolicy: Abort
+        execNewPod:
+          containerName: mongodb
+          command:
+            - /bin/sh
+            - -c
+            - $APP_DATA/scripts/script.sh
+          env:
+            - name: MONGODB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: database-user
+                  name: mongodb
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-password
+                  name: mongodb
+            - name: MONGODB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: database-name
+                  name: mongodb
+          volumes:
+            - scripts
