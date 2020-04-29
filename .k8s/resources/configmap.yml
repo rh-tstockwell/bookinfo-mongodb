@@ -33,9 +33,4 @@ data:
       --file "$APP_DATA/scripts/ratings_data.json"
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2020-04-29T14:03:18Z"
   name: mongodb
-  namespace: bookinfo
-  resourceVersion: "404887951"
-  selfLink: /api/v1/namespaces/bookinfo/configmaps/mongodb
-  uid: 2d3e3058-8a22-11ea-a5ee-02fdb1202f5a

@@ -2,20 +2,12 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   annotations:
-    openshift.io/generated-by: OpenShiftNewApp
     template.alpha.openshift.io/wait-for-ready: "true"
-  creationTimestamp: "2020-04-29T14:00:54Z"
-  generation: 3
   labels:
     app: mongodb
     app.kubernetes.io/component: mongodb
     app.kubernetes.io/instance: mongodb
-    template: mongodb-persistent-template
   name: mongodb
-  namespace: bookinfo
-  resourceVersion: "404889589"
-  selfLink: /apis/apps.openshift.io/v1/namespaces/bookinfo/deploymentconfigs/mongodb
-  uid: d7884295-8a21-11ea-b451-0a580a80011a
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -55,9 +47,7 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        openshift.io/generated-by: OpenShiftNewApp
-      creationTimestamp: null
+      annotations: {}
       labels:
         name: mongodb
     spec:
@@ -83,7 +73,6 @@ spec:
             secretKeyRef:
               key: database-name
               name: mongodb
-        image: image-registry.openshift-image-registry.svc:5000/openshift/mongodb@sha256:a47669f75bcd0a1b79e11fbf0fb095bdfd7fbfe14ff7d6fb820cae4b830f960f
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -146,30 +135,5 @@ spec:
         kind: ImageStreamTag
         name: mongodb:3.6
         namespace: openshift
-      lastTriggeredImage: image-registry.openshift-image-registry.svc:5000/openshift/mongodb@sha256:a47669f75bcd0a1b79e11fbf0fb095bdfd7fbfe14ff7d6fb820cae4b830f960f
     type: ImageChange
   - type: ConfigChange
-status:
-  availableReplicas: 1
-  conditions:
-  - lastTransitionTime: "2020-04-29T14:04:26Z"
-    lastUpdateTime: "2020-04-29T14:04:26Z"
-    message: Deployment config has minimum availability.
-    status: "True"
-    type: Available
-  - lastTransitionTime: "2020-04-29T14:03:48Z"
-    lastUpdateTime: "2020-04-29T14:04:37Z"
-    message: replication controller "mongodb-2" successfully rolled out
-    reason: NewReplicationControllerAvailable
-    status: "True"
-    type: Progressing
-  details:
-    causes:
-    - type: ConfigChange
-    message: config change
-  latestVersion: 2
-  observedGeneration: 3
-  readyReplicas: 1
-  replicas: 1
-  unavailableReplicas: 0
-  updatedReplicas: 1
