@@ -33,4 +33,6 @@ data:
       --file "$APP_DATA/scripts/ratings_data.json"
 kind: ConfigMap
 metadata:
+  labels:
+    app: mongodb
   name: mongodb
